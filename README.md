@@ -1,5 +1,9 @@
 # pndtracker
 
+Example project tracker app with Vue - Vuex - Firebase. 
+
+Edit firebase config in ``` ./src/firebase/index.js ```
+
 ## Project setup
 ```
 npm install
