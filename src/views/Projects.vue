@@ -7,14 +7,13 @@ import {mapActions, mapGetters} from "vuex";
 export default {
   name: "Projects",
   components: {ProjectFilter, InputGroup, ProjectCard},
-  data(){
-    return{
-    }
+  data() {
+    return {}
   },
   created() {
     this.getProjects();
   },
-  methods:{
+  methods: {
     ...mapActions(['getProjects']),
   }
 
@@ -22,32 +21,31 @@ export default {
 </script>
 
 <template>
- <section>
-   <div class="container-fluid">
-     <div class="row">
-       <div class="col-12 mb-3">
-         <div class="card">
-           <div class="card-header">
-            <ProjectFilter/>
-           </div>
-         </div>
-       </div>
-     </div>
-     <div class="row">
-       <div class="grid col-12">
-          <ProjectCard v-for="project in this.$store.state.filteredProjects" :project="project" :key="project.id" />
-       </div>
-     </div>
-   </div>
- </section>
+  <section>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <div class="card">
+            <div class="card-header">
+              <ProjectFilter/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <transition-group move-class="moveClass" mode="in-out" tag="div" class="grid col-12" enter-active-class="animate__animated animate__zoomIn" leave-active-class="animate__animated animate__zoomOut">
+            <ProjectCard v-for="project in this.$store.state.filteredProjects" :project="project" :key="project.id"/>
+        </transition-group>
+      </div>
+    </div>
+  </section>
 </template>
 
 
-
 <style scoped>
-.grid{
+.grid {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
 
 }

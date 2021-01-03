@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 $body-font :'Poppins', sans-serif;
 @import "~animate.css";
+.moveClass{
+  transition: transform 1s;
+}
 
 
 select {
