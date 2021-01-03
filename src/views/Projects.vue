@@ -35,7 +35,7 @@ export default {
      </div>
      <div class="row">
        <div class="grid col-12">
-          <ProjectCard v-for="project in this.$store.state.projects" :project="project" :key="project.id" />
+          <ProjectCard v-for="project in this.$store.state.filteredProjects" :project="project" :key="project.id" />
        </div>
      </div>
    </div>
