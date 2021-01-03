@@ -16,6 +16,7 @@ export default new Vuex.Store({
         },
         clients: [],
         projects: [],
+        filteredProjects:[],
     },
     getters: {
         isLoggedIn: (state) => {
@@ -45,7 +46,11 @@ export default new Vuex.Store({
         },
         SET_PROJECTS(state, data) {
             state.projects = data;
+            state.filteredProjects = data;
         },
+        SET_FILTEREDS(state,data){
+            state.filteredProjects = data;
+        }
 
     },
     actions: {
@@ -77,7 +82,7 @@ export default new Vuex.Store({
         },
 
         async addClient({commit, dispatch}, payload) {
-            const res = await clientsCollection.add({
+            await clientsCollection.add({
                 name: payload.name,
                 created_at: new Date().toISOString()
             });
@@ -85,7 +90,7 @@ export default new Vuex.Store({
         },
 
         async addProject({commit, dispatch}, payload) {
-            const res = await projectsCollection.add({
+            await projectsCollection.add({
                 name: payload.name,
                 clientID: payload.clientID,
                 startDate: payload.startDate,
@@ -110,15 +115,15 @@ export default new Vuex.Store({
         filterProjects({commit, state, dispatch}, payload) {
 
             if (payload && payload.text.length > 0 || payload.status.length > 0) {
-               let filtereds =  state.projects.filter(project => {
+                state.filteredProjects = state.projects
+               let filtereds =  state.filteredProjects.filter(project => {
                    if(payload.status.length < 1){ // Not selected status. Search only Name.
                         return project.name.toLowerCase().includes(payload.text.toLowerCase())
                    }else{
-                       return project.name.toLowerCase().includes(payload.text.toLowerCase()) && payload.status.toLowerCase().includes(project.status.toLowerCase())
+                       return project.name.toLowerCase().includes(payload.text.toLowerCase()) && payload.status.includes(project.status.toLowerCase())
                    }
                 })
-
-                commit('SET_PROJECTS',filtereds)
+                commit('SET_FILTEREDS',filtereds)
             } else {
                 console.log('Else dispatching');
                 /***
